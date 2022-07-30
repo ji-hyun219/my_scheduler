@@ -11,11 +11,16 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   DateTime? selectedDay;
+  DateTime focusedDay = DateTime.now();
+  BoxDecoration rectangleDecoration = BoxDecoration(
+    shape: BoxShape.rectangle,
+    borderRadius: BorderRadius.circular(12),
+  );
 
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      focusedDay: DateTime.now(),
+      focusedDay: focusedDay,
       firstDay: DateTime(1800),
       lastDay: DateTime(3000),
       headerStyle: const HeaderStyle(
@@ -29,6 +34,7 @@ class _CalendarState extends State<Calendar> {
       onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
         setState(() {
           this.selectedDay = selectedDay;
+          this.focusedDay = selectedDay;
         });
       },
       selectedDayPredicate: (DateTime day) {
@@ -41,13 +47,15 @@ class _CalendarState extends State<Calendar> {
       calendarStyle: CalendarStyle(
         isTodayHighlighted: false,
         weekendTextStyle: const TextStyle().copyWith(color: Colors.red),
-        // selectedDecoration: const BoxDecoration(
-        //   color: Color.fromARGB(177, 92, 107, 192),
-        //   shape: BoxShape.circle,
-        // ),
+        defaultDecoration: rectangleDecoration,
+        weekendDecoration: rectangleDecoration,
+        selectedDecoration: rectangleDecoration.copyWith(
+          color: const Color.fromARGB(164, 172, 192, 92),
+        ),
+        outsideDecoration: rectangleDecoration,
       ),
       calendarBuilders: CalendarBuilders(
-        prioritizedBuilder: (context, day, focusedDay) {
+        defaultBuilder: (context, day, focusedDay) {
           if (day.weekday == DateTime.saturday) {
             final saturdayText = day.day.toString();
 
