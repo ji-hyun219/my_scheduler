@@ -16,9 +16,8 @@ class ScheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
-          width: MediaQuery.of(context).size.width - 60,
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             border: Border.all(

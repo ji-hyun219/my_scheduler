@@ -33,11 +33,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedDay: selectedDay,
                 scheduleCount: scheduleCount,
               ),
-              const ScheduleCard(
-                startTime: 8,
-                endTime: 9,
-                content: '프로그래밍 공부하기',
-                color: Colors.red,
+              const SizedBox(height: 8),
+              Expanded(
+                child: ListView.separated(
+                    separatorBuilder: ((context, index) {
+                      return const SizedBox(height: 8);
+                    }),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return const ScheduleCard(
+                        startTime: 8,
+                        endTime: 9,
+                        content: '프로그래밍 공부하기',
+                        color: Colors.red,
+                      );
+                    }),
               ),
             ],
           ),

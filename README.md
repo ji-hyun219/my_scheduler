@@ -2,25 +2,16 @@
 
 캘린더와 할 일을 기록하는 실제 사용을 위한 앱을 만들고 있습니다.
 
-### widget.\*\*\*
+# widget.\*\*\*
 
 setter 로 설정되어 있을 때 widget 으로 접근
 반면, this 는 state 로 관리될 때 this 로 접근
 
-### getter, setter 사용하는 이유
+# getter, setter 사용하는 이유
 
 데이터를 보호하기 위해 사용한다. (특히 클래스를 생성할 때)
 
-getter 는 인스턴
-
-### widget
-
-TableCalendar<T> get widget
-package:flutter/src/widgets/framework.dart
-
-The current configuration.
-
-A [State] object's configuration is the corresponding [StatefulWidget] instance. This property is initialized by the framework before calling [initState]. If the parent updates this location in the tree to a new widget with the same [runtimeType] and [Widget.key] as the current configuration, the framework will update this property to refer to the new widget and then call [didUpdateWidget], passing the old configuration as an argument.
+# positional optional parameter
 
 ```dart
 DateTime DateTime(
@@ -50,5 +41,20 @@ IntrinsicHeight({
 });
 ```
 
-- key : 교체해야 하는지 여부를 제어하는 ​​데 사용되는 위젯 키입니다.
-- child : 자식 속성은 트리의 현재 위젯 아래에 있는 위젯을 나타냅니다. 자식 위젯에는 자식이 하나만 있습니다. 사용자에게 여러 자식 사용자는 Column Widget , Row Widget , Stack Widget 을 사용하고 해당 위젯에 자식을 제공할 수 있습니다.
+- `key` : 교체해야 하는지 여부를 제어하는 ​​데 사용되는 위젯 키입니다.
+- `child` : 자식 속성은 트리의 현재 위젯 아래에 있는 위젯을 나타냅니다. 자식 위젯에는 자식이 하나만 있습니다. 사용자에게 여러 자식 사용자는 Column Widget , Row Widget , Stack Widget 을 사용하고 해당 위젯에 자식을 제공할 수 있습니다.
+
+# ListView.builder
+
+```dart
+  ListView.builder(
+    itemCount: 3,
+    itemBuilder: (context, index) {
+      return Container();
+    }
+  )
+```
+
+이렇게만 쓰면 `unbounded(무한한)` 에러가 난다.
+자리를 얼마나 차지할지 모르기 때문이다.
+따라서 이 위젯을 `Expanded` 로 감싸야 한다.
