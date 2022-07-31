@@ -16,7 +16,7 @@ class ScheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
