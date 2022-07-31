@@ -13,7 +13,7 @@ class TodayBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        color: const Color.fromARGB(255, 202, 233, 240),
+        color: const Color.fromARGB(242, 225, 205, 182),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -25,7 +25,7 @@ class TodayBanner extends StatelessWidget {
         ));
   }
 
-  final TextStyle textStyle = const TextStyle(
+  final textStyle = const TextStyle(
     color: Colors.white,
     fontSize: 13,
     fontWeight: FontWeight.w700,

@@ -34,3 +34,21 @@ DateTime DateTime(
   int microsecond = 0,
 ])
 ```
+
+# IntrinsicHeight
+
+IntrinsicHeight 위젯 은 자식의 고유 높이에 맞게 자식 크기를 조정하는 위젯입니다.
+
+무제한 높이를 사용할 수 있고 사용자가 더 합리적인 높이로 크기를 조정하기 위해 무한 확장을 시도하는 자식을 원하는 경우 사용자는 IntrinsicHeight 를 사용할 수 있습니다.
+
+사용자가 Row Widget 또는 Column Widget 내부의 모든 위젯 을 가장 높은 위젯만큼 높이길 원할 때 IntrinsicHeight Widget을 사용할 수 있습니다.
+
+```dart
+IntrinsicHeight({
+  Key key,
+  Widget child,
+});
+```
+
+- key : 교체해야 하는지 여부를 제어하는 ​​데 사용되는 위젯 키입니다.
+- child : 자식 속성은 트리의 현재 위젯 아래에 있는 위젯을 나타냅니다. 자식 위젯에는 자식이 하나만 있습니다. 사용자에게 여러 자식 사용자는 Column Widget , Row Widget , Stack Widget 을 사용하고 해당 위젯에 자식을 제공할 수 있습니다.
