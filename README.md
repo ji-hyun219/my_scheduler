@@ -2,15 +2,6 @@
 
 캘린더와 할 일을 기록하는 실제 사용을 위한 앱을 만들고 있습니다.
 
-# widget.\*\*\*
-
-setter 로 설정되어 있을 때 widget 으로 접근
-반면, this 는 state 로 관리될 때 this 로 접근
-
-# getter, setter 사용하는 이유
-
-데이터를 보호하기 위해 사용한다. (특히 클래스를 생성할 때)
-
 # positional optional parameter
 
 ```dart
@@ -58,3 +49,81 @@ IntrinsicHeight({
 이렇게만 쓰면 `unbounded(무한한)` 에러가 난다.
 자리를 얼마나 차지할지 모르기 때문이다.
 따라서 이 위젯을 `Expanded` 로 감싸야 한다.
+
+# 왜 데이터가 초기화될까
+
+1. RAM 은 빠르지만 장기적으로 데이터를 유지할 수 없다.
+2. HDD/SSD(보조기억장치들)는 느리지만 장기적으로 데이터를 유지할 수 있다.
+
+## SQL 을 사용한 실행 Flow
+
+기존 앱 실행 Flow :
+| HDD | ------------ | RAM |
+
+1.
+
+- HDD
+
+```dart
+Container(color : Colors.back);
+```
+
+`setState 사용`해서 `검정 -> 블루` 로 교체
+
+- RAM
+
+```dart
+Container(color: Colors.blue);
+```
+
+하지만 여전히 HDD 는
+
+```dart
+Container(color : Colors.back);
+```
+
+이 상태로 존재하고 있으므로, 앱을 재실행하면 다시 검정으로 나타나게 된다.
+
+그래서 이번 프로젝트는 `SQL 을 사용`할 것이다.
+
+# SQL 기본 문법 정리
+
+1. update 문법 : `UPDATE {table} SET {column} WHERE {condition}`
+
+- 예시
+
+```mysql
+UPDATE players SET gender = 'F' WHERE name = '곽윤기'
+```
+
+2. delete 문법 : `DELETE FROM {table} WHERE {condition}`
+
+- 예시
+
+```mysql
+DELETE FROM players WHERE gender = 'F'
+```
+
+gender 가 F 인 ROW 다 삭제됨
+
+3. insert 문법 : `INSERT INTO {table} {column1, column2 ...} VALUES {value1, value2 ...}`
+
+```mysql
+INSERT INTO players (id, name, gender) VALUES (11, '진선유', 'F')
+```
+
+4. join 문법 : `SELECT {column} FROM {table} INNER JOIN {other_table} ON {condition}`
+
+- `many to one` : (ex) 한 선수가 한 종목에만 출전할 경우를 예시로 들어보면, `1000 미터의 best_score 는 650점`이란 데이터가 계속 중복이 될 때 --> identity 가 있는 테이블(= 트랙 테이블)을 생성해야함
+- 이것을 바로 `normalizaion 정규화` 라고 함
+- players 테이블의 track_id 는 여러개 가지고 있고, track 테이블의 id 는 유니크함
+
+```mysql
+SELECT player.id, player.name, player.gender, track.length, track.best_score FROM player INNER JOIN track ON player.track_id = track.id
+```
+
+- `many to many` : (ex) 만약 한 선수가 여러 종목에 출전한다면? --> 선수 id 와 트랙 id 를 연결한 테이블을 하나 더 생성 --> INNER JOIN 두 번 사용
+
+```mysql
+SELECT player.name, track.length FROM player_track INNER JOIN player ON player_track.player_id = player.id INNER JOIN track ON player_track.track_id = track.id
+```
