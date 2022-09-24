@@ -13,27 +13,50 @@ class ScheduleBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 2 + bottomSheet,
-      color: Colors.white,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: bottomSheet),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: const [
-                Expanded(child: CustomTextField(label: '시작 시간')),
-                SizedBox(width: 10),
-                Expanded(child: CustomTextField(label: '종료 시간')),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()), // <-- bottomsheet 안의 여백을 누르면 키보드가 닫히게
+      child: SafeArea(
+        child: Container(
+          height: MediaQuery.of(context).size.height / 2 + bottomSheet,
+          color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: bottomSheet),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: const [
+                    Expanded(
+                        child: CustomTextField(
+                      label: '시작 시간',
+                      isTime: true,
+                    )),
+                    SizedBox(width: 10),
+                    Expanded(
+                        child: CustomTextField(
+                      label: '종료 시간',
+                      isTime: true,
+                    )),
+                  ],
+                ),
+                const Expanded(
+                  // expanded 로 감싸도 화면을 다 차지하지 않는 이유
+                  // CustomTextField 는 컬럼 위젯이니까..
+                  // 그래서 CustomTextFiled 안에 텍스트를 expaned 로 또 감싸줘야 함
+                  // 그래도 textfield 가 늘어나지 않는다 .. 이유는
+                  // textfield 의 expands 속성을 쓰지 않았기 때문
+                  child: CustomTextField(
+                    label: '할 일',
+                    isTime: false,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const _ColorPicker(),
+                const SizedBox(height: 15),
+                const _SaveButton()
               ],
             ),
-            const CustomTextField(label: '할 일'),
-            const SizedBox(height: 10),
-            const _ColorPicker(),
-            const SizedBox(height: 15),
-            const _SaveButton()
-          ],
+          ),
         ),
       ),
     );
