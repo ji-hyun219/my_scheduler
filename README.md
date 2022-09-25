@@ -148,3 +148,9 @@ If a part is an absolute path, then anything before that will be ignored:
 ```dart
 p.join('path', '/to', 'foo'); // -> '/to/foo'
 ```
+
+# code generation
+
+```
+flutter pub run build_runner build
+```

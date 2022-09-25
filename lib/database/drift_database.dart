@@ -20,6 +20,22 @@ class LocalDatabase extends _$LocalDatabase {
   // _$LocalDatabase 를 drift 가 만들어줌(drift_database.g.dart 에서)
   LocalDatabase() : super(_openConnection());
 
+  // 아래
+  // 스키마버전: 데이터베이스 테이블의 상태 버전
+  // 데이터베이스 데이터가 바뀌는게 아니라 구조가 바뀔 때 (테이블의 구조가 바뀔 때!)
+  // 스키마 버전을 올려줘야 한다. 1부터 시작하면 된다
+  @override
+  int get schemaVersion => 1;
+
+  // 아래
+  // drift 가 sql 을 전환하는 방식이라고 생각하면 된다
+  // insert 한 primary key 를 반환해준다.
+  Future<int> createSchedule(SchedulesCompanion data) => into(schedules).insert(data);
+
+  Future<int> createCategoryColor(CategoryColorsCompanion data) => into(categoryColors).insert(data);
+
+  Future<List<CategoryColor>> getCategoryColors() => select(categoryColors).get();
+
   LazyDatabase _openConnection() {
     return LazyDatabase(() async {
       // sql 은 보조기억장치를 연결해준다고 했다.
