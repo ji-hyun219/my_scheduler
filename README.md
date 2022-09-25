@@ -127,3 +127,24 @@ SELECT player.id, player.name, player.gender, track.length, track.best_score FRO
 ```mysql
 SELECT player.name, track.length FROM player_track INNER JOIN player ON player_track.player_id = player.id INNER JOIN track ON player_track.track_id = track.id
 ```
+
+# path_provider
+
+Joins the given path parts into a single path using the current platform's [separator].
+Example:
+
+```dart
+p.join('path', 'to', 'foo'); // -> 'path/to/foo'
+```
+
+If any part ends in a path separator, then a redundant separator will not be added:
+
+```dart
+p.join('path/', 'to', 'foo'); // -> 'path/to/foo
+```
+
+If a part is an absolute path, then anything before that will be ignored:
+
+```dart
+p.join('path', '/to', 'foo'); // -> '/to/foo'
+```
